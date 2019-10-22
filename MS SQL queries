@@ -2,6 +2,7 @@ CREATE waterbillingsystem
 GO
 USE waterbillingsystem
 
+
 CREATE TABLE Segment (
   ID INT PRIMARY KEY IDENTITY,
   Water_Tax INT NOT NULL,
@@ -11,24 +12,24 @@ CREATE TABLE Segment (
 );
 
 CREATE TABLE City (
-  zipcode INT PRIMARY KEY,
-  City_name CHAR(30),
+  zipcode INT PRIMARY KEY NOT NULL,
+  City_name CHAR(30) NOT NULL,
 );
 
 CREATE TABLE Customer (
   customer_ID INT PRIMARY KEY IDENTITY,
-  customer_type CHAR(30),
-  adress CHAR(50),
-  zipcode INT,
-  name CHAR(50),
-  Email CHAR(50),
-  Subscription BIT NOT NULL
+  customer_type CHAR(30) NOT NULL,
+  adress CHAR(50) NOT NULL,
+  zipcode INT NOT NULL ,
+  customer_name CHAR(50) NOT NULL,
+  email CHAR(50) NOT NULL,
+  subscription BIT NOT NULL
   FOREIGN KEY (zipcode) REFERENCES city (zipcode) 
 );
 
 CREATE TABLE Water_Meters (
-  serial INT IDENTITY PRIMARY KEY,
-  cus_id INT,
+  serial INT IDENTITY PRIMARY KEY NOT NULL,
+  cus_id INT NOT NULL,
   FOREIGN KEY (cus_id) REFERENCES Customer(customer_ID)
 );
 
@@ -40,12 +41,12 @@ CREATE TABLE invoice (
 );
 
 CREATE TABLE reading_card (
-  RC_ID INT,
-  due_date DATE,
-  reading_date DATE,
-  invoice_id INT,
-  reading_amount INT,
-  Serial INT
+  RC_ID INT PRIMARY KEY IDENTITY,
+  due_date DATE NOT NULL,
+  reading_date DATE NOT NULL,
+  invoice_id INT NOT NULL,
+  reading_amount INT NOT NULL,
+  Serial INT NOT NULL, 
   FOREIGN KEY (serial) REFERENCES water_meters (Serial),
   FOREIGN KEY (invoice_id) REFERENCES invoice (inv_id) 
 );
