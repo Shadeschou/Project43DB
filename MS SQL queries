@@ -1,0 +1,58 @@
+CREATE waterbillingsystem
+GO
+USE waterbillingsystem
+
+CREATE TABLE Segment (
+  ID INT PRIMARY KEY IDENTITY,
+  Water_Tax INT NOT NULL,
+  segment_type CHAR(30) NOT NULL,
+  Drain_tax INT NOT NULL,
+  fee INT NOT NULL,
+);
+
+CREATE TABLE City (
+  zipcode INT PRIMARY KEY,
+  City_name CHAR(30),
+);
+
+CREATE TABLE Customer (
+  customer_ID INT PRIMARY KEY IDENTITY,
+  customer_type CHAR(30),
+  adress CHAR(50),
+  zipcode INT,
+  name CHAR(50),
+  Email CHAR(50),
+  Subscription BIT NOT NULL
+  FOREIGN KEY (zipcode) REFERENCES city (zipcode) 
+);
+
+CREATE TABLE Water_Meters (
+  serial INT IDENTITY PRIMARY KEY,
+  cus_id INT,
+  FOREIGN KEY (cus_id) REFERENCES Customer(customer_ID)
+);
+
+CREATE TABLE invoice (
+  inv_id INT PRIMARY KEY IDENTITY NOT NULL,
+  due_date_inv DATE NOT NULL,
+  price INT NOT NULL,
+  PAYED BIT NOT NULL
+);
+
+CREATE TABLE reading_card (
+  RC_ID INT,
+  due_date DATE,
+  reading_date DATE,
+  invoice_id INT,
+  reading_amount INT,
+  Serial INT
+  FOREIGN KEY (serial) REFERENCES water_meters (Serial),
+  FOREIGN KEY (invoice_id) REFERENCES invoice (inv_id) 
+);
+
+CREATE TABLE Reminder (
+  rem_id INT PRIMARY KEY IDENTITY,
+  inv_id INT,
+  rem_date DATE,
+  FOREIGN KEY (inv_id) REFERENCES invoice (inv_id)
+);
