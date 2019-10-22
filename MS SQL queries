@@ -3,21 +3,21 @@ GO
 USE waterbillingsystem
 
 
-CREATE TABLE Segment (
-  ID INT PRIMARY KEY IDENTITY,
-  Water_Tax INT NOT NULL,
+CREATE TABLE segment (
+  segment_id INT PRIMARY KEY IDENTITY,
+  water_tax INT NOT NULL,
   segment_type CHAR(30) NOT NULL,
-  Drain_tax INT NOT NULL,
+  drain_tax INT NOT NULL,
   fee INT NOT NULL,
 );
 
-CREATE TABLE City (
+CREATE TABLE city (
   zipcode INT PRIMARY KEY NOT NULL,
-  City_name CHAR(30) NOT NULL,
+  city_name CHAR(30) NOT NULL,
 );
 
-CREATE TABLE Customer (
-  customer_ID INT PRIMARY KEY IDENTITY,
+CREATE TABLE customer (
+  customer_id INT PRIMARY KEY IDENTITY,
   customer_type CHAR(30) NOT NULL,
   adress CHAR(50) NOT NULL,
   zipcode INT NOT NULL ,
@@ -27,7 +27,7 @@ CREATE TABLE Customer (
   FOREIGN KEY (zipcode) REFERENCES city (zipcode) 
 );
 
-CREATE TABLE Water_Meters (
+CREATE TABLE water_meters (
   serial INT PRIMARY KEY NOT NULL,
   cus_id INT NOT NULL,
   FOREIGN KEY (cus_id) REFERENCES Customer(customer_ID)
@@ -36,20 +36,20 @@ CREATE TABLE invoice (
   inv_id INT PRIMARY KEY IDENTITY NOT NULL,
   due_date_inv DATE NOT NULL,
   price INT NOT NULL,
-  PAYED BIT NOT NULL
+  payed BIT NOT NULL
 );
 CREATE TABLE reading_card (
-  RC_ID INT PRIMARY KEY IDENTITY,
+  rc_id INT PRIMARY KEY IDENTITY,
   due_date DATE NOT NULL,
   reading_date DATE NOT NULL,
   invoice_id INT NOT NULL,
   reading_amount INT NOT NULL,
-  Serial INT NOT NULL, 
-  FOREIGN KEY (serial) REFERENCES water_meters (Serial),
+  serial INT NOT NULL, 
+  FOREIGN KEY (serial) REFERENCES water_meters (serial),
   FOREIGN KEY (invoice_id) REFERENCES invoice (inv_id) 
 );
 
-CREATE TABLE Reminder (
+CREATE TABLE reminder (
   rem_id INT PRIMARY KEY IDENTITY,
   inv_id INT,
   rem_date DATE,
