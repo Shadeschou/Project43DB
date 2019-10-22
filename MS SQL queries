@@ -28,18 +28,16 @@ CREATE TABLE Customer (
 );
 
 CREATE TABLE Water_Meters (
-  serial INT IDENTITY PRIMARY KEY NOT NULL,
+  serial INT PRIMARY KEY NOT NULL,
   cus_id INT NOT NULL,
   FOREIGN KEY (cus_id) REFERENCES Customer(customer_ID)
 );
-
 CREATE TABLE invoice (
   inv_id INT PRIMARY KEY IDENTITY NOT NULL,
   due_date_inv DATE NOT NULL,
   price INT NOT NULL,
   PAYED BIT NOT NULL
 );
-
 CREATE TABLE reading_card (
   RC_ID INT PRIMARY KEY IDENTITY,
   due_date DATE NOT NULL,
