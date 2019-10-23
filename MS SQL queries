@@ -1,4 +1,4 @@
-CREATE waterbillingsystem
+CREATE DATABASE waterbillingsystem
 GO
 USE waterbillingsystem
 
